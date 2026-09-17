@@ -380,4 +380,23 @@ header {
     .player-extra {
         display: none; /* Esconde o botão Subscribe no telemóvel para não estragar a barra */
     }
+    /* 5. Centrar as fotos na vertical e horizontal no telemóvel */
+    .artist-bg {
+        background-position: center center; 
+    }
+
+    /* 6. Forçar os títulos e feats a ficarem numa só linha */
+    .cat-title {
+        font-size: 17px; /* Reduzimos um pouco para caber melhor */
+        white-space: nowrap; /* Proíbe o texto de quebrar para a linha de baixo */
+        overflow: hidden; /* Esconde o que ultrapassar o limite do ecrã */
+        text-overflow: ellipsis; /* Adiciona "..." automaticamente se o texto for longo */
+        width: 100%;
+        display: block;
+    }
+    
+    .catalog-item {
+        overflow: hidden; /* Evita que a caixa invisível do item estique */
+        width: 100%;
+    }
 }
