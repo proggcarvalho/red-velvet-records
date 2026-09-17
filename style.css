@@ -385,7 +385,7 @@ header {
     }
     /* 5. Centrar as fotos na vertical e horizontal no telemóvel */
     .artist-bg {
-        background-position: center 25%; 
+        background-position: center 75%; 
     }
 
     /* 6. Forçar os títulos e feats a ficarem numa só linha */
