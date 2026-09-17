@@ -26,7 +26,7 @@ body::before {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     pointer-events: none;
     z-index: 20;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
@@ -104,7 +104,7 @@ header {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background-size: cover;
     background-position: top center;
     opacity: 0.35; /* Muito subtil, como uma marca de água fotográfica */
@@ -119,7 +119,7 @@ header {
 
 .artist-container {
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     z-index: 5;
@@ -259,7 +259,7 @@ header {
 
 .catalog-container {
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     padding: 130px 5vw 120px 5vw; /* Espaço para o header e para o player não taparem a lista */
     z-index: 5;
     overflow-y: auto; /* Permite fazer scroll pela lista das 30 músicas */
@@ -319,10 +319,13 @@ header {
 }
 /* ESTILO DOS FEATS NOS TÍTULOS */
 .feat-text {
-    font-size: 0.65em; /* Reduz o tamanho */
-    color: var(--red-velvet); /* Muda para a vossa cor */
+    font-size: 0.65em;
+    color: var(--red-velvet);
     font-weight: 700;
-    margin-left: 8px; /* Dá um pequeno espaço do título principal */
+    display: block; /* Força o elemento a saltar para a linha de baixo */
+    margin-left: 0; /* Removemos o espaçamento que tínhamos antes */
+    margin-top: 4px; /* Dá uma pequena folga do título */
+    white-space: normal; /* Garante que, se for muito longo, não corta */
 }
 
 /* --- ADAPTAÇÃO PARA TELEMÓVEIS (iPhone, Android, etc) --- */
@@ -361,9 +364,9 @@ header {
 
     /* 4. O Player de Áudio (A parte mais encavalitada) */
     .player-bar {
-        padding: 15px 20px;
-        flex-wrap: wrap; /* Permite que os elementos caiam para a linha de baixo se não couberem */
-        gap: 10px;
+        position: fixed;
+        bottom: 0;
+        padding-bottom: max(15px, env(safe-area-inset-bottom)); /* Margem nativa do iPhone */
     }
     .player-info {
         width: 100%;
@@ -382,7 +385,7 @@ header {
     }
     /* 5. Centrar as fotos na vertical e horizontal no telemóvel */
     .artist-bg {
-        background-position: center center; 
+        background-position: center 25%; 
     }
 
     /* 6. Forçar os títulos e feats a ficarem numa só linha */

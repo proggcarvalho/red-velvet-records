@@ -115,13 +115,13 @@ const loadTrack = (fileUrl, autoPlay = false) => {
 const playTrack = () => {
     currentAudio.play();
     isPlaying = true;
-    document.getElementById('play-pause').innerHTML = '⏸';
+    document.getElementById('play-pause').innerHTML = '⏸\uFE0E';
 };
 
 const pauseTrack = () => {
     currentAudio.pause();
     isPlaying = false;
-    document.getElementById('play-pause').innerHTML = '▶';
+    document.getElementById('play-pause').innerHTML = '▶\uFE0E';
 };
 
 const setupPlayer = () => {
