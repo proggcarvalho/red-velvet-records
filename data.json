@@ -1,0 +1,165 @@
+{
+  "artists": [
+    {
+      "id": "nwooyygbrl",
+      "name": "Gabriel",
+      "role": "Management / Lyrics",
+      "bio": "O único mano ajuízado nesta congregação",
+      "image": "assets/images/nwooyygbrl.JPEG",
+      "featuredTrack": {
+        "title": "X.A.N.A.",
+        "file": "assets/audio/nwooyygbrl_X.A.N.A.mp3"
+      }
+    },
+    {
+      "id": "gongueiro",
+      "name": "Gongueiro",
+      "role": "Beats / Produção",
+      "bio": "O Beethoven que cria os instrumentais divinais.",
+      "image": "assets/images/gongas.jpeg",
+      "featuredTrack": {
+        "title": "Pierre_o_Som",
+        "file": "assets/audio/pierreOSom.mp3"
+      }
+    },
+    {
+      "id": "viracasacas",
+      "name": "Simão",
+      "role": "Vocals",
+      "bio": "Aquele gajo que acha que tem jeito e que por isso insiste.",
+      "image": "assets/images/viracasacas.JPEG",
+      "featuredTrack": {
+        "title": "Carlitos",
+        "file": "assets/audio/carlitos.mp3"
+      }
+    },
+    {
+      "id": "flaua",
+      "name": "Flores",
+      "role": "Vocals / Lyrics",
+      "bio": "Portador do tarifário ilimitado da palavra mãe",
+      "image": "assets/images/flores.JPEG",
+      "featuredTrack": {
+        "title": "RealidadeOSom",
+        "file": "assets/audio/realidadeosom.mp3"
+      }
+    }
+  ],
+  "catalog": [
+    {
+      "title": "Assombrousse (feat Zé Da Nela and Flores)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/assombrousse.mp3"
+    },
+    {
+      "title": "Beat Sara",
+      "credits": "Prod. Gongueiro x nwooyygbrl",
+      "file": "assets/audio/beat_sara.mp3"
+    },
+    {
+      "title": "Carlitos (feat gongueiro and simão)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/carlitos.mp3"
+    },
+    {
+      "title": "Improvement",
+      "credits": "Prod. Gongueiro x nwooyygbrl",
+      "file": "assets/audio/gon_gab_improvement.mp3"
+    },
+    {
+      "title": "Sábado (feat gongueiro, simão and nwooyygbrl)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/gon_sim_gab.mp3"
+    },
+    {
+      "title": "pierre (feat Gongueiro and playboicarti)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/gongueiro_feat_carti.mp3"
+    },
+    {
+      "title": "Strong_One",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/gongueiro_StrongOne.mp3"
+    },
+    {
+      "title": "Summer_Vibe",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/gongueiro_summervibe.mp3"
+    },
+    {
+      "title": "Melodic_Beat",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/melodicBeat.mp3"
+    },
+    {
+      "title": "Nasa (feat flores and gongueiro)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/nasa.mp3"
+    },
+    {
+      "title": "Nites (feat nwooyygbrl and gongueiro)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/nites.mp3"
+    },
+    {
+      "title": "English Try (feat nwooyygbrl)",
+      "credits": "Prod. Gongueiro x nwooyygbrl",
+      "file": "assets/audio/nwooyygbrl_englishTry.mp3"
+    },
+    {
+      "title": "Is_Music (feat gongueiro and nwooyygbrl)",
+      "credits": "Prod. Gongueiro x nwooyygbrl",
+      "file": "assets/audio/nwooyygbrl_is_music.mp3"
+    },
+    {
+      "title": "PissOfBeat",
+      "credits": "Prod. nwooyygbrl",
+      "file": "assets/audio/nwooyygbrl_PissOfBeat.mp3"
+    },
+    {
+      "title": "PissOfBeat2",
+      "credits": "Prod. nwooyygbrl",
+      "file": "assets/audio/nwooyygbrl_PissOfBeat2.mp3"
+    },
+    {
+      "title": "X.A.N.A. (feat nwooyygbrl)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/nwooyygbrl_X.A.N.A.mp3"
+    },
+    {
+      "title": "Pierre_o_Som (feat gongueiro)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/pierreOSom.mp3"
+    },
+    {
+      "title": "RealidadeOSom (feat flores and gongueiro)",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/realidadeosom.mp3"
+    },
+    {
+      "title": "SempreSwitches (feat gongueiro, simão and nwooyygbrl)",
+      "credits": "Prod. Gongueiro x nwooyygbrl x Simão",
+      "file": "assets/audio/sempreswitches.mp3"
+    },
+    {
+      "title": "Stranger_Type_Beat",
+      "credits": "Prod. Gongueiro",
+      "file": "assets/audio/strangerTypeBeat.mp3"
+    },
+        {
+      "title": "First Crack",
+      "credits": "Red Velvet",
+      "file": "assets/audio/first_crack.mp3"
+    },
+        {
+      "title": "Sec Crack",
+      "credits": "Red Velvet",
+      "file": "assets/audio/sec_crack.mp3"
+    },
+    {
+      "title": "Third Crack",
+      "credits": "Red Velvet",
+      "file": "assets/audio/third_crack.mp3"
+    }
+  ]
+}
