@@ -324,3 +324,60 @@ header {
     font-weight: 700;
     margin-left: 8px; /* Dá um pequeno espaço do título principal */
 }
+
+/* --- ADAPTAÇÃO PARA TELEMÓVEIS (iPhone, Android, etc) --- */
+@media screen and (max-width: 768px) {
+    /* 1. O Header (Logotipo e Abas) */
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+    .logo {
+        font-size: 24px;
+        text-align: center;
+    }
+    .socials {
+        display: none; /* Esconde o IG/SC no telemóvel para poupar espaço */
+    }
+
+    /* 2. A lista de nomes gigantes na capa */
+    .artist-item {
+        font-size: 15vw; /* Aumenta a proporção da letra para não ficar minúscula */
+    }
+
+    /* 3. A aba do Catálogo */
+    .catalog-container {
+        padding: 140px 5vw 120px 5vw; /* Dá mais margem no topo porque o header agora é mais alto */
+    }
+    .catalog-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .cat-credits {
+        text-align: left; /* Alinha os créditos à esquerda por baixo do título no telemóvel */
+    }
+
+    /* 4. O Player de Áudio (A parte mais encavalitada) */
+    .player-bar {
+        padding: 15px 20px;
+        flex-wrap: wrap; /* Permite que os elementos caiam para a linha de baixo se não couberem */
+        gap: 10px;
+    }
+    .player-info {
+        width: 100%;
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 2px solid var(--ink-black); /* Passa a linha divisória para baixo */
+        padding-bottom: 5px;
+    }
+    .player-controls {
+        margin-left: 0;
+        width: 100%;
+        gap: 15px;
+    }
+    .player-extra {
+        display: none; /* Esconde o botão Subscribe no telemóvel para não estragar a barra */
+    }
+}
