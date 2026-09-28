@@ -2,6 +2,10 @@ let currentAudio = new Audio();
 let isPlaying = false;
 let appData = {};
 
+// Variáveis para sabermos sempre onde estamos na lista (para o AutoPlay)
+let currentPlaylist = [];
+let currentTrackIndex = 0;
+
 const initApp = async () => {
     try {
         const res = await fetch('data.json'); 
@@ -29,7 +33,7 @@ const setupTabs = () => {
         btnCatalog.classList.remove('active');
         viewArtists.classList.remove('hidden');
         viewCatalog.classList.add('hidden');
-        bgContainer.style.opacity = '0.15'; // Mostra a textura de fundo
+        bgContainer.style.opacity = '0.35';
     });
 
     btnCatalog.addEventListener('click', () => {
@@ -37,20 +41,27 @@ const setupTabs = () => {
         btnArtists.classList.remove('active');
         viewCatalog.classList.remove('hidden');
         viewArtists.classList.add('hidden');
-        bgContainer.style.opacity = '0'; // Esconde a foto de fundo para o catálogo ficar limpo
+        bgContainer.style.opacity = '0';
     });
 };
 
-// --- RENDERIZAR ARTISTAS (Aba 1) ---
+// --- RENDERIZAR ARTISTAS ---
 const renderArtists = (artists) => {
     const listContainer = document.getElementById('artist-list');
     const bgContainer = document.getElementById('artist-bg');
+
+    // Cria uma mini-playlist com as 4 músicas de destaque
+    const featuredPlaylist = artists.map(a => ({
+        title: a.featuredTrack.title,
+        artist: a.name,
+        file: a.featuredTrack.file,
+        image: a.image
+    }));
 
     artists.forEach((artist, index) => {
         const item = document.createElement('div');
         item.classList.add('artist-item');
         if (index === 0) item.classList.add('active');
-        
         item.innerText = artist.name;
 
         item.addEventListener('click', () => {
@@ -58,29 +69,38 @@ const renderArtists = (artists) => {
             item.classList.add('active');
             bgContainer.style.backgroundImage = `url(${artist.image})`;
             
-            updatePlayerInfo(artist.featuredTrack.title, artist.name);
-            loadTrack(artist.featuredTrack.file, true); 
+            playFromPlaylist(featuredPlaylist, index);
         });
 
         listContainer.appendChild(item);
     });
 
     if (artists.length > 0) {
-        updatePlayerInfo(artists[0].featuredTrack.title, artists[0].name);
         bgContainer.style.backgroundImage = `url(${artists[0].image})`;
-        loadTrack(artists[0].featuredTrack.file, false); 
+        // Prepara a primeira faixa sem a tocar automaticamente
+        currentPlaylist = featuredPlaylist;
+        currentTrackIndex = 0;
+        updatePlayerInfo(featuredPlaylist[0].title, featuredPlaylist[0].artist);
+        loadTrack(featuredPlaylist[0].file, false);
+        setupMediaSession(featuredPlaylist[0]);
     }
 };
 
-// --- RENDERIZAR CATÁLOGO (Aba 2) ---
+// --- RENDERIZAR CATÁLOGO ---
 const renderCatalog = (catalogTracks) => {
     const catalogList = document.getElementById('catalog-list');
 
-    catalogTracks.forEach(track => {
+    // Cria a playlist gigante com as 30 músicas
+    const catalogPlaylist = catalogTracks.map(track => ({
+        title: track.title,
+        artist: track.credits,
+        file: track.file
+    }));
+
+    catalogTracks.forEach((track, index) => {
         const li = document.createElement('li');
         li.classList.add('catalog-item');
         
-        // Expressão regular para encontrar texto entre parênteses e envolvê-lo num span
         const formatTitle = track.title.replace(/(\(.*?\))/g, '<span class="feat-text">$1</span>');
         
         li.innerHTML = `
@@ -89,21 +109,59 @@ const renderCatalog = (catalogTracks) => {
         `;
 
         li.addEventListener('click', () => {
-            updatePlayerInfo(track.title, track.credits);
-            loadTrack(track.file, true);
+            playFromPlaylist(catalogPlaylist, index);
         });
 
         catalogList.appendChild(li);
     });
 };
 
+// --- LÓGICA DE PLAYLIST E AUTOPLAY ---
+const playFromPlaylist = (playlist, index) => {
+    currentPlaylist = playlist;
+    currentTrackIndex = index;
+    const track = playlist[index];
+    
+    updatePlayerInfo(track.title, track.artist);
+    loadTrack(track.file, true);
+    setupMediaSession(track);
+};
+
+const playNextTrack = () => {
+    if (currentPlaylist.length === 0) return;
+    // Salta para a próxima, ou volta à primeira se chegar ao fim
+    currentTrackIndex = (currentTrackIndex + 1) % currentPlaylist.length;
+    playFromPlaylist(currentPlaylist, currentTrackIndex);
+};
+
+const playPrevTrack = () => {
+    if (currentPlaylist.length === 0) return;
+    // Volta atrás
+    currentTrackIndex = (currentTrackIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
+    playFromPlaylist(currentPlaylist, currentTrackIndex);
+};
+
+// --- INTEGRAÇÃO COM O ECRÃ DE BLOQUEIO DO iOS/ANDROID ---
+const setupMediaSession = (track) => {
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: track.title,
+            artist: track.artist,
+            album: 'Red Velvet Records'
+        });
+
+        // Liga os comandos do telemóvel às nossas funções do site
+        navigator.mediaSession.setActionHandler('play', playTrack);
+        navigator.mediaSession.setActionHandler('pause', pauseTrack);
+        navigator.mediaSession.setActionHandler('previoustrack', playPrevTrack);
+        navigator.mediaSession.setActionHandler('nexttrack', playNextTrack);
+    }
+};
+
 // --- MOTOR DO PLAYER ---
 const updatePlayerInfo = (title, artist) => {
-    // Atualiza a barra de rodapé
     document.getElementById('track-name').innerText = title;
     document.getElementById('track-artist').innerText = artist;
-    
-    // Atualiza o ecrã expansível
     document.getElementById('full-track-name').innerText = title;
     document.getElementById('full-track-artist').innerText = artist;
 };
@@ -111,7 +169,7 @@ const updatePlayerInfo = (title, artist) => {
 const loadTrack = (fileUrl, autoPlay = false) => {
     currentAudio.src = fileUrl;
     currentAudio.load();
-    document.querySelector('.progress-bar').style.width = '0%';
+    document.querySelector('.progress-bar:not(.full-progress-bar)').style.width = '0%';
     document.querySelector('.full-progress-bar').style.width = '0%';
     
     if (autoPlay) playTrack();
@@ -119,27 +177,28 @@ const loadTrack = (fileUrl, autoPlay = false) => {
 };
 
 const playTrack = () => {
-    currentAudio.play();
-    isPlaying = true;
-    document.getElementById('play-pause').innerHTML = '❚❚\uFE0E';
-    document.getElementById('full-play-pause').innerHTML = '❚❚\uFE0E';
+    currentAudio.play().then(() => {
+        isPlaying = true;
+        document.getElementById('play-pause').innerHTML = '❚❚\uFE0E';
+        document.getElementById('full-play-pause').innerHTML = '❚❚\uFE0E';
+    }).catch(err => console.log("O AutoPlay foi bloqueado pelo navegador", err));
 };
 
 const pauseTrack = () => {
     currentAudio.pause();
     isPlaying = false;
-    document.getElementById('play-pause').innerHTML = '▶\uFE0E';
-    document.getElementById('full-play-pause').innerHTML = '▶\uFE0E';
+    document.getElementById('play-pause').innerHTML = '►\uFE0E';
+    document.getElementById('full-play-pause').innerHTML = '►\uFE0E';
 };
 
 const setupPlayer = () => {
-    // Elementos da barra pequena
     const miniPlayBtn = document.getElementById('play-pause');
     const miniProgressContainer = document.querySelector('.progress-container:not(.full-progress-container)');
     const miniProgressBar = document.querySelector('.progress-bar:not(.full-progress-bar)');
     
-    // Elementos do player gigante
     const fullPlayBtn = document.getElementById('full-play-pause');
+    const fullPrevBtn = document.getElementById('full-prev');
+    const fullNextBtn = document.getElementById('full-next');
     const fullProgressContainer = document.querySelector('.full-progress-container');
     const fullProgressBar = document.querySelector('.full-progress-bar');
     
@@ -147,21 +206,18 @@ const setupPlayer = () => {
     const fullPlayer = document.getElementById('full-player');
     const closePlayerBtn = document.getElementById('close-player');
 
-    // 1. Abrir e Fechar o Ecrã Inteiro
-    miniPlayerInfo.addEventListener('click', () => {
-        fullPlayer.classList.add('open');
-    });
-    
-    closePlayerBtn.addEventListener('click', () => {
-        fullPlayer.classList.remove('open');
-    });
+    // Abre e fecha o player gigante
+    miniPlayerInfo.addEventListener('click', () => fullPlayer.classList.add('open'));
+    closePlayerBtn.addEventListener('click', () => fullPlayer.classList.remove('open'));
 
-    // 2. Botões de Play/Pause (Ambos)
+    // Botões de Play/Pause e Saltos
     const togglePlay = () => isPlaying ? pauseTrack() : playTrack();
     miniPlayBtn.addEventListener('click', togglePlay);
     fullPlayBtn.addEventListener('click', togglePlay);
+    fullPrevBtn.addEventListener('click', playPrevTrack);
+    fullNextBtn.addEventListener('click', playNextTrack);
 
-    // 3. Animar as duas barras de progresso
+    // Barras de progresso
     currentAudio.addEventListener('timeupdate', () => {
         if (currentAudio.duration) {
             const progressPercent = (currentAudio.currentTime / currentAudio.duration) * 100;
@@ -170,7 +226,6 @@ const setupPlayer = () => {
         }
     });
 
-    // 4. Clicar nas barras para avançar
     const seekTrack = (e, container) => {
         if (currentAudio.duration) {
             currentAudio.currentTime = (e.offsetX / container.clientWidth) * currentAudio.duration;
@@ -179,13 +234,8 @@ const setupPlayer = () => {
     miniProgressContainer.addEventListener('click', (e) => seekTrack(e, miniProgressContainer));
     fullProgressContainer.addEventListener('click', (e) => seekTrack(e, fullProgressContainer));
 
-    // 5. Reset quando acaba (temporário, antes de metermos o autoplay)
-    currentAudio.addEventListener('ended', () => {
-        pauseTrack();
-        miniProgressBar.style.width = '0%';
-        fullProgressBar.style.width = '0%';
-    });
+    // A MÁGICA DO AUTOPLAY: Quando a música acaba, chama a próxima automaticamente!
+    currentAudio.addEventListener('ended', playNextTrack);
 };
 
-// Arranca a máquina
 document.addEventListener('DOMContentLoaded', initApp);
