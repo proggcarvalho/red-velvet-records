@@ -147,10 +147,13 @@ const setupMediaSession = (track) => {
         navigator.mediaSession.metadata = new MediaMetadata({
             title: track.title,
             artist: track.artist,
-            album: 'Red Velvet Records'
+            album: 'Red Velvet Records',
+            artwork: [
+                // Coloca aqui o caminho para o vosso logótipo (uma imagem quadrada fica melhor)
+                { src: 'assets/images/crack.png', sizes: '512x512', type: 'image/jpeg' }
+            ]
         });
 
-        // Liga os comandos do telemóvel às nossas funções do site
         navigator.mediaSession.setActionHandler('play', playTrack);
         navigator.mediaSession.setActionHandler('pause', pauseTrack);
         navigator.mediaSession.setActionHandler('previoustrack', playPrevTrack);
@@ -179,14 +182,16 @@ const loadTrack = (fileUrl, autoPlay = false) => {
 const playTrack = () => {
     currentAudio.play().then(() => {
         isPlaying = true;
-        document.getElementById('play-pause').innerHTML = '❚❚\uFE0E';
-        document.getElementById('full-play-pause').innerHTML = '❚❚\uFE0E';
+        // Retirámos o \uFE0E daqui porque o símbolo de pausa já é texto puro
+        document.getElementById('play-pause').innerHTML = '❚❚';
+        document.getElementById('full-play-pause').innerHTML = '❚❚';
     }).catch(err => console.log("O AutoPlay foi bloqueado pelo navegador", err));
 };
 
 const pauseTrack = () => {
     currentAudio.pause();
     isPlaying = false;
+    // Mantemos o \uFE0E apenas no Play, para a Apple não o transformar num emoji 3D
     document.getElementById('play-pause').innerHTML = '►\uFE0E';
     document.getElementById('full-play-pause').innerHTML = '►\uFE0E';
 };
