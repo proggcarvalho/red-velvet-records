@@ -210,6 +210,11 @@ header {
     cursor: pointer;
     box-shadow: 3px 3px 0px var(--ink-black);
     transition: all 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
 }
 
 .play-btn:hover {
