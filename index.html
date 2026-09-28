@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RED VELVET RECORDS</title>
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=10">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -15,8 +15,8 @@
             <button id="tab-catalog" class="filter-btn">Catalog</button>
         </nav>
         <div class="socials">
-            <a href="https://www.instagram.com/redvelvet_records/">IG</a>
-            <a href="https://soundcloud.com/redvelvet_records">SC</a>
+            <a href="https://www.instagram.com/redvelvet_records/" target="_blank">IG</a>
+            <a href="https://soundcloud.com/redvelvet_records" target="_blank">SC</a>
         </div>
     </header>
 
@@ -24,19 +24,19 @@
         <!-- Fundo dinâmico da imagem do artista -->
         <div id="artist-bg" class="artist-bg"></div>
 
-        <!-- ABA 1: ARTISTAS (A que já tens) -->
+        <!-- ABA 1: ARTISTAS -->
         <section id="view-artists" class="artist-container">
             <div id="artist-list" class="artist-list"></div>
         </section>
 
-        <!-- ABA 2: CATÁLOGO (Nova) -->
+        <!-- ABA 2: CATÁLOGO -->
         <section id="view-catalog" class="catalog-container hidden">
             <div class="catalog-header">
                 <h2>Complete Archive</h2>
                 <p>30 home-produced tracks.</p>
             </div>
             <ul id="catalog-list" class="catalog-list">
-                <!-- O JS vai cuspir as 30 músicas aqui -->
+                <!-- O JS vai cuspir as músicas aqui -->
             </ul>
         </section>
     </main>
@@ -68,9 +68,9 @@
         
         <div class="full-player-cover">
             <div class="cover-art-text">
-                <span style="color: var(--red-velvet);">RED VELVET</span><br>RECORDS
+                RED VELVET<br><span style="color: var(--red-velvet);">RECORDS</span>
             </div>
-        </div
+        </div>
         
         <div class="full-player-info">
             <h2 id="full-track-name">Seleciona uma faixa...</h2>
@@ -83,11 +83,11 @@
         
         <div class="full-player-controls">
             <button id="full-prev" class="btn-control">⏮&#xFE0E;</button>
-            <button id="full-play-pause" class="play-btn full-play-btn">▶&#xFE0E;</button>
+            <button id="full-play-pause" class="play-btn full-play-btn">❚❚</button>
             <button id="full-next" class="btn-control">⏭&#xFE0E;</button>
         </div>
     </div>
 
-    <script src="app.js?v=7"></script>
+    <script src="app.js?v=10"></script>
 </body>
 </html>

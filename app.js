@@ -150,7 +150,7 @@ const setupMediaSession = (track) => {
             album: 'Red Velvet Records',
             artwork: [
                 // Coloca aqui o caminho para o vosso logótipo (uma imagem quadrada fica melhor)
-                { src: 'assets/images/crack.png', sizes: '512x512', type: 'image/jpeg' }
+                { src: 'assets/images/red-velvet-records-logo.png', sizes: '512x512', type: 'image/jpeg' }
             ]
         });
 

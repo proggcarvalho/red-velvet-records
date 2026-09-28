@@ -107,14 +107,14 @@ header {
     height: 100dvh;
     background-size: cover;
     background-position: top center;
-    opacity: 0.35; /* Muito subtil, como uma marca de água fotográfica */
+    opacity: 0.35;
     transition: background-image 0.5s ease;
     z-index: 1;
-    filter: grayscale(100%) contrast(150%); /* Força as fotos a preto e branco e alto contraste */
+    filter: grayscale(100%) contrast(150%);
 }
 
 .vignette {
-    display: none; /* Retiramos o degradê escuro da Bridgetown */
+    display: none;
 }
 
 .artist-container {
@@ -136,7 +136,7 @@ header {
     font-size: 9vw;
     font-weight: 900;
     color: transparent;
-    -webkit-text-stroke: 2px var(--ink-black); /* Letras apenas com contorno, estilo stencil/tatuagem */
+    -webkit-text-stroke: 2px var(--ink-black);
     cursor: pointer;
     transition: all 0.2s ease;
     line-height: 0.9;
@@ -145,7 +145,7 @@ header {
 }
 
 .artist-item.active {
-    color: var(--ink-black); /* Preenche a tinta */
+    color: var(--ink-black);
     -webkit-text-stroke: 0;
     transform: translateX(30px);
 }
@@ -203,7 +203,7 @@ header {
     background: var(--red-velvet);
     color: var(--bg-paper);
     border: 2px solid var(--ink-black);
-    border-radius: 0; /* Botão quadrado e cru */
+    border-radius: 0;
     width: 50px;
     height: 50px;
     font-size: 18px;
@@ -257,6 +257,7 @@ header {
     color: var(--bg-paper);
     border-color: var(--red-velvet);
 }
+
 /* --- ABA CATÁLOGO --- */
 .hidden {
     display: none !important;
@@ -265,9 +266,9 @@ header {
 .catalog-container {
     position: relative;
     height: 100dvh;
-    padding: 130px 5vw 120px 5vw; /* Espaço para o header e para o player não taparem a lista */
+    padding: 130px 5vw 120px 5vw;
     z-index: 5;
-    overflow-y: auto; /* Permite fazer scroll pela lista das 30 músicas */
+    overflow-y: auto;
 }
 
 .catalog-header {
@@ -318,24 +319,22 @@ header {
     text-align: right;
 }
 
-/* Quando passas o rato, o texto vermelho passa a papel para se ler bem no fundo preto */
 .catalog-item:hover .cat-credits {
     color: var(--bg-paper);
 }
-/* ESTILO DOS FEATS NOS TÍTULOS */
+
 .feat-text {
     font-size: 0.65em;
     color: var(--red-velvet);
     font-weight: 700;
-    display: block; /* Força o elemento a saltar para a linha de baixo */
-    margin-left: 0; /* Removemos o espaçamento que tínhamos antes */
-    margin-top: 4px; /* Dá uma pequena folga do título */
-    white-space: normal; /* Garante que, se for muito longo, não corta */
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+    white-space: normal;
 }
 
 /* --- ADAPTAÇÃO PARA TELEMÓVEIS (iPhone, Android, etc) --- */
 @media screen and (max-width: 768px) {
-    /* 1. O Header (Logotipo e Abas) */
     header {
         flex-direction: column;
         padding: 15px 20px;
@@ -346,17 +345,15 @@ header {
         text-align: center;
     }
     .socials {
-        display: none; /* Esconde o IG/SC no telemóvel para poupar espaço */
+        display: none;
     }
 
-    /* 2. A lista de nomes gigantes na capa */
     .artist-item {
-        font-size: 15vw; /* Aumenta a proporção da letra para não ficar minúscula */
+        font-size: 15vw;
     }
 
-    /* 3. A aba do Catálogo */
     .catalog-container {
-        padding: 140px 5vw 120px 5vw; /* Dá mais margem no topo porque o header agora é mais alto */
+        padding: 140px 5vw 120px 5vw;
     }
     .catalog-item {
         flex-direction: column;
@@ -364,20 +361,19 @@ header {
         gap: 5px;
     }
     .cat-credits {
-        text-align: left; /* Alinha os créditos à esquerda por baixo do título no telemóvel */
+        text-align: left;
     }
 
-    /* 4. O Player de Áudio (A parte mais encavalitada) */
     .player-bar {
         position: fixed;
         bottom: 0;
-        padding-bottom: max(15px, env(safe-area-inset-bottom)); /* Margem nativa do iPhone */
+        padding-bottom: max(15px, env(safe-area-inset-bottom));
     }
     .player-info {
         width: 100%;
         border-right: none;
         padding-right: 0;
-        border-bottom: 2px solid var(--ink-black); /* Passa a linha divisória para baixo */
+        border-bottom: 2px solid var(--ink-black);
         padding-bottom: 5px;
     }
     .player-controls {
@@ -386,39 +382,44 @@ header {
         gap: 15px;
     }
     .player-extra {
-        display: none; /* Esconde o botão Subscribe no telemóvel para não estragar a barra */
+        display: none;
     }
-    /* 5. Centrar as fotos na vertical e horizontal no telemóvel */
+    
     .artist-bg {
         background-position: center 75%; 
     }
 
-    /* 6. Forçar os títulos e feats a ficarem numa só linha */
     .cat-title {
-        font-size: 17px; /* Reduzimos um pouco para caber melhor */
-        white-space: nowrap; /* Proíbe o texto de quebrar para a linha de baixo */
-        overflow: hidden; /* Esconde o que ultrapassar o limite do ecrã */
-        text-overflow: ellipsis; /* Adiciona "..." automaticamente se o texto for longo */
+        font-size: 17px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         width: 100%;
         display: block;
     }
     
     .catalog-item {
-        overflow: hidden; /* Evita que a caixa invisível do item estique */
+        overflow: hidden;
         width: 100%;
     }
-    /* 7. Ajustes do Player Gigante para não empurrar os botões para fora do ecrã */
+    
     .full-player {
         padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom)) 20px;
+        justify-content: space-evenly;
     }
     
     .full-player-cover {
         margin: 15px 0;
-        min-height: 0; /* Truque mágico: obriga a caixa a encolher se faltar espaço */
+        min-height: 0;
+        flex: 1;
+        max-height: 38vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .cover-art-text {
-        font-size: 8vw; /* Letra da capa um bocadinho mais pequena */
+        font-size: 8vw;
     }
     
     .full-player-info {
@@ -426,7 +427,7 @@ header {
     }
     
     .full-player-info h2 {
-        font-size: 22px; /* Títulos mais compactos para não ocuparem tantas linhas */
+        font-size: 22px;
     }
     
     .full-progress-container {
@@ -437,7 +438,7 @@ header {
 /* --- PLAYER EXPANSÍVEL --- */
 .full-player {
     position: fixed;
-    top: 100dvh; /* Começa escondido abaixo do ecrã */
+    top: 100dvh;
     left: 0;
     width: 100vw;
     height: 100dvh;
@@ -446,11 +447,11 @@ header {
     display: flex;
     flex-direction: column;
     padding: max(30px, env(safe-area-inset-top)) 20px max(40px, env(safe-area-inset-bottom)) 20px;
-    transition: top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Deslize fluido */
+    transition: top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .full-player.open {
-    top: 0; /* Sobe para tapar o ecrã */
+    top: 0;
 }
 
 .full-player-header {
@@ -470,7 +471,6 @@ header {
     cursor: pointer;
 }
 
-/* Capa brutalista de disco */
 .full-player-cover {
     flex: 1;
     margin: 30px 0;
@@ -512,7 +512,7 @@ header {
 }
 
 .full-progress-container {
-    height: 18px; /* Barra mais grossa no ecrã inteiro */
+    height: 18px;
     margin-bottom: 30px;
 }
 
