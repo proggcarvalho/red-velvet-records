@@ -99,14 +99,20 @@ const renderCatalog = (catalogTracks) => {
 
 // --- MOTOR DO PLAYER ---
 const updatePlayerInfo = (title, artist) => {
+    // Atualiza a barra de rodapé
     document.getElementById('track-name').innerText = title;
     document.getElementById('track-artist').innerText = artist;
+    
+    // Atualiza o ecrã expansível
+    document.getElementById('full-track-name').innerText = title;
+    document.getElementById('full-track-artist').innerText = artist;
 };
 
 const loadTrack = (fileUrl, autoPlay = false) => {
     currentAudio.src = fileUrl;
     currentAudio.load();
     document.querySelector('.progress-bar').style.width = '0%';
+    document.querySelector('.full-progress-bar').style.width = '0%';
     
     if (autoPlay) playTrack();
     else pauseTrack();
@@ -115,40 +121,69 @@ const loadTrack = (fileUrl, autoPlay = false) => {
 const playTrack = () => {
     currentAudio.play();
     isPlaying = true;
-    document.getElementById('play-pause').innerHTML = '❚❚';
+    document.getElementById('play-pause').innerHTML = '❚❚\uFE0E';
+    document.getElementById('full-play-pause').innerHTML = '❚❚\uFE0E';
 };
 
 const pauseTrack = () => {
     currentAudio.pause();
     isPlaying = false;
-    document.getElementById('play-pause').innerHTML = '►';
+    document.getElementById('play-pause').innerHTML = '▶\uFE0E';
+    document.getElementById('full-play-pause').innerHTML = '▶\uFE0E';
 };
 
 const setupPlayer = () => {
-    const playBtn = document.getElementById('play-pause');
-    const progressContainer = document.querySelector('.progress-container');
-    const progressBar = document.querySelector('.progress-bar');
+    // Elementos da barra pequena
+    const miniPlayBtn = document.getElementById('play-pause');
+    const miniProgressContainer = document.querySelector('.progress-container:not(.full-progress-container)');
+    const miniProgressBar = document.querySelector('.progress-bar:not(.full-progress-bar)');
+    
+    // Elementos do player gigante
+    const fullPlayBtn = document.getElementById('full-play-pause');
+    const fullProgressContainer = document.querySelector('.full-progress-container');
+    const fullProgressBar = document.querySelector('.full-progress-bar');
+    
+    const miniPlayerInfo = document.querySelector('.player-info');
+    const fullPlayer = document.getElementById('full-player');
+    const closePlayerBtn = document.getElementById('close-player');
 
-    playBtn.addEventListener('click', () => {
-        isPlaying ? pauseTrack() : playTrack();
+    // 1. Abrir e Fechar o Ecrã Inteiro
+    miniPlayerInfo.addEventListener('click', () => {
+        fullPlayer.classList.add('open');
+    });
+    
+    closePlayerBtn.addEventListener('click', () => {
+        fullPlayer.classList.remove('open');
     });
 
+    // 2. Botões de Play/Pause (Ambos)
+    const togglePlay = () => isPlaying ? pauseTrack() : playTrack();
+    miniPlayBtn.addEventListener('click', togglePlay);
+    fullPlayBtn.addEventListener('click', togglePlay);
+
+    // 3. Animar as duas barras de progresso
     currentAudio.addEventListener('timeupdate', () => {
         if (currentAudio.duration) {
             const progressPercent = (currentAudio.currentTime / currentAudio.duration) * 100;
-            progressBar.style.width = `${progressPercent}%`;
+            miniProgressBar.style.width = `${progressPercent}%`;
+            fullProgressBar.style.width = `${progressPercent}%`;
         }
     });
 
-    progressContainer.addEventListener('click', (e) => {
+    // 4. Clicar nas barras para avançar
+    const seekTrack = (e, container) => {
         if (currentAudio.duration) {
-            currentAudio.currentTime = (e.offsetX / progressContainer.clientWidth) * currentAudio.duration;
+            currentAudio.currentTime = (e.offsetX / container.clientWidth) * currentAudio.duration;
         }
-    });
+    };
+    miniProgressContainer.addEventListener('click', (e) => seekTrack(e, miniProgressContainer));
+    fullProgressContainer.addEventListener('click', (e) => seekTrack(e, fullProgressContainer));
 
+    // 5. Reset quando acaba (temporário, antes de metermos o autoplay)
     currentAudio.addEventListener('ended', () => {
         pauseTrack();
-        progressBar.style.width = '0%';
+        miniProgressBar.style.width = '0%';
+        fullProgressBar.style.width = '0%';
     });
 };
 

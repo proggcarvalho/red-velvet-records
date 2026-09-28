@@ -403,3 +403,106 @@ header {
         width: 100%;
     }
 }
+
+/* --- PLAYER EXPANSÍVEL --- */
+.full-player {
+    position: fixed;
+    top: 100dvh; /* Começa escondido abaixo do ecrã */
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: var(--bg-paper);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    padding: max(30px, env(safe-area-inset-top)) 20px max(40px, env(safe-area-inset-bottom)) 20px;
+    transition: top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Deslize fluido */
+}
+
+.full-player.open {
+    top: 0; /* Sobe para tapar o ecrã */
+}
+
+.full-player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: var(--ink-black);
+    cursor: pointer;
+}
+
+/* Capa brutalista de disco */
+.full-player-cover {
+    flex: 1;
+    margin: 30px 0;
+    background-color: var(--ink-black);
+    color: var(--bg-paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 4px solid var(--ink-black);
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.3);
+}
+
+.cover-art-text {
+    font-size: 10vw;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -2px;
+}
+
+.full-player-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.full-player-info h2 {
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.full-player-info p {
+    font-size: 14px;
+    color: var(--red-velvet);
+    font-weight: 700;
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+.full-progress-container {
+    height: 18px; /* Barra mais grossa no ecrã inteiro */
+    margin-bottom: 30px;
+}
+
+.full-player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.btn-control {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: var(--ink-black);
+    cursor: pointer;
+}
+
+.full-play-btn {
+    width: 75px;
+    height: 75px;
+    font-size: 24px;
+}
