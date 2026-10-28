@@ -160,6 +160,21 @@
       "title": "Third Crack",
       "credits": "Red Velvet",
       "file": "assets/audio/third_crack.mp3"
+    },
+    {
+      "title": "NuStaParaCaixão (feat simão)",
+      "credits": "PROD. GONGUEIRO",
+      "file": "assets/audio/nu_sta_para_caixao.mp3"
+    },
+    {
+      "title": "Afrohouse (feat simão)",
+      "credits": "PROD. GONGUEIRO",
+      "file": "assets/audio/afrohouse.mp3"
+    },
+    {
+      "title": "Ela passa (feat nwooyygbrl)",
+      "credits": "PROD. GONGUEIRO",
+      "file": "assets/audio/ela_passa.mp3"
     }
   ]
 }
